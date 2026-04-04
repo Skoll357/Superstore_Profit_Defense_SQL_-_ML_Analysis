@@ -36,5 +36,8 @@ This project provides a comprehensive data-driven strategy to identify historica
 ## Data Resource
 **SuperStore Dataset - https://www.kaggle.com/datasets/vivek468/superstore-dataset-final**
 
+
+## Notice
+**Please replace your_path with your local directory when running the code.**
 ---
 *Developed as a comprehensive lifecycle & supply chain analysis of Superstore Operations.*
