@@ -1,0 +1,13 @@
+Region,Category,Total_Orders,Avg_Shipping_Days,Avg_Discount_Rate,Loss_Order_Ratio,Overall_Margin
+Central,Office Supplies,1409,4.11,26.78%,26.12%,5.42%
+Central,Furniture,477,3.97,29.8%,66.04%,-1.85%
+Central,Technology,416,3.94,13.39%,11.78%,19.69%
+East,Office Supplies,1693,3.94,17.93%,13.64%,19.91%
+East,Technology,533,3.88,14.35%,25.52%,17.9%
+East,Furniture,593,3.84,15.4%,30.69%,1.42%
+South,Furniture,331,4.02,12.19%,17.52%,5.72%
+South,Office Supplies,988,3.96,18.4%,17.21%,15.88%
+South,Technology,291,3.9,10.86%,10.65%,13.43%
+West,Technology,597,3.96,13.4%,9.21%,17.59%
+West,Office Supplies,1886,3.94,18.08%,5.73%,23.27%
+West,Furniture,703,3.87,13.16%,22.05%,4.54%

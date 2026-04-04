@@ -1,0 +1,5 @@
+Ship Mode,Min_Days,Avg_Days,Max_Days,Avg_Profit_Margin,Anomaly_Ratio,Avg_Profit_Per_Order
+Same Day,0.0,0.0,1.0,13.48%,8.33%,29.17
+First Class,1.0,2.2,4.0,11.44%,10.22%,31.78
+Second Class,1.0,3.2,5.0,15.03%,7.28%,29.69
+Standard Class,3.0,5.0,7.0,11.03%,9.66%,27.59

@@ -1,0 +1,4 @@
+Operational_Anomaly_Tag,Line_Item_Count,Impacted_Sales,Impacted_Profit,Percentage_of_Total_Items
+Extreme Loss,4,19435.45,-5274.43,0.04%
+High Discount Loss,913,122978.1,-96786.93,9.21%
+Normal,9000,2150364.94,387018.03,90.75%
