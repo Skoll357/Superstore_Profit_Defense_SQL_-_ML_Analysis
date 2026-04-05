@@ -12,6 +12,7 @@ plt.rcParams["font.serif"] = ["Times New Roman"]
 df_seg = pd.read_csv('your_path.04_FRM_customer_segmentation.csv')
 df_state = pd.read_csv('your_path.04_FRM_profit_drains_by_state.csv')
 df_sub = pd.read_csv('your_path.04_FRM_profit_drains_by_sub_category.csv')
+df_mba = pd.read_csv('your_path.05_market_basket_analysis_association.csv')
 
 # 数据清洗：将百分比字符串转换为浮点数以便绘图
 df_seg['Avg_Discount_Rate'] = df_seg['Avg_Discount_Rate'].str.rstrip('%').astype('float')
@@ -54,18 +55,31 @@ axes[1, 0].set_xlabel('Total Net Loss ($)', fontsize=14)
 for i, v in enumerate(df_sub_top['Total_Loss']):
     axes[1, 0].text(v, i, f" Disc: {df_sub_top.iloc[i]['Avg_Discount']}%", va='center', fontsize=12)
 
-# --- Plot 4: Logistics Misallocation (The Efficiency Irony) ---
-# 目标：展示亏损产品反而享受了极短的配送时间
-sns.scatterplot(data=df_sub, x='Avg_Discount', y='Avg_Ship_Days', size='Order_Count', 
-                hue='Total_Loss', palette='RdYlGn', sizes=(100, 1000), ax=axes[1, 1])
-axes[1, 1].set_title('4. Logistics Irony: Discount vs. Shipping Speed', fontsize=18, pad=15)
-axes[1, 1].set_xlabel('Average Discount Rate (%)', fontsize=14)
-axes[1, 1].set_ylabel('Avg. Shipping Duration (Days)', fontsize=14)
-axes[1, 1].invert_xaxis() # 折扣越高越显眼
-# 标注 Binders 和 Machines 两个重点
-for line in range(0, 2): # 前两名（通常是 Binders 和 Machines）
-     axes[1, 1].text(df_sub.iloc[line]['Avg_Discount'], df_sub.iloc[line]['Avg_Ship_Days']+0.1, 
-                     df_sub.iloc[line]['Sub-Category'], horizontalalignment='center', size='large', color='black', weight='semibold')
+# --- Plot 4: Market Basket Audit: 'Poor Bundling' Evidence ---
+# 逻辑：展示 Binders 并没有带动高价值电子产品，而是和低价值耗材捆绑
+ax4 = axes[1, 1]
+
+# 创建组合名称用于展示
+df_mba['Pair'] = df_mba['Product_A'] + " + " + df_mba['Product_B']
+# 取前 5 个最频繁的组合进行展示
+df_mba_top = df_mba.head(5).sort_values('Times_Bought_Together', ascending=True)
+
+# 绘图：使用深灰色调，强调“低价值耗材”的重复性
+sns.barplot(data=df_mba_top, x='Times_Bought_Together', y='Pair', color='#636363', ax=ax4)
+
+ax4.set_title("4. Market Basket Audit: 'Poor Bundling' Evidence\n(Frequency of Product Pairs)", fontsize=18, pad=15)
+ax4.set_xlabel("Times Bought Together", fontsize=14)
+ax4.set_ylabel("Product Pair", fontsize=14)
+
+# 在条形图末尾标注具体次数
+for i, v in enumerate(df_mba_top['Times_Bought_Together']):
+    ax4.text(v + 3, i, str(v), color='black', va='center', fontweight='bold', fontsize=12)
+
+# 重点标注：如果第一名是 Binders + Paper，加上高亮提示（可选文字说明）
+ax4.annotate('Low-Value Bundling Trap', xy=(df_mba_top.iloc[-1]['Times_Bought_Together'], 4), 
+             xytext=(df_mba_top.iloc[-1]['Times_Bought_Together'] - 100, 3.5),
+             arrowprops=dict(facecolor='black', shrink=0.05, width=1, headwidth=5),
+             fontsize=12, fontweight='bold', color='#c0392b')
 
 # 整体修饰
 sns.despine()
